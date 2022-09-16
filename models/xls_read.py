@@ -37,7 +37,8 @@ class ReadXls(models.TransientModel):
             'name': lead['customer_requirement'],
             'phone': lead['customer_number'],
             'lead_qual': lead['your_name'],
-            'lead_qual_num': lead['your_number']
+            'lead_qual_num': lead['your_number'],
+            'source_id': 'OPS'
         } for lead in cells]
 
         for lead in leads:
@@ -112,6 +113,7 @@ class ReadXls(models.TransientModel):
                              lead_qual=lead['_source']['log_details'][0]['received_by'][0]['name'],
                              lead_qual_num=lead['_source']['log_details'][0]['received_by'][0][
                                  'contact_number_raw'],
+                             source_id='INBOUND',
                              audio_link=self.aud_link(self.record_test(lead['_source']['filename']),
                                                       lead['_source']['log_details'][0]['received_by'][0]['name'],
                                                       lead['_source']['additional_parameters'][0]['vl']))]
